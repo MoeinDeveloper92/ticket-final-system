@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaUser } from "react-icons/fa"
 import { toast } from "react-toastify"
 import { useSelector, useDispatch } from "react-redux"
-import { register } from '../features/auth/authSlice'
-
+import { register, reset } from '../features/auth/authSlice'
+import { useNavigate } from "react-router-dom"
 const Register = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -15,7 +15,20 @@ const Register = () => {
 
     const { user, isLoading, isSuccess, isError, message } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
+
+    //After getting response(when promise resolve)
+    useEffect(() => {
+        if (isError) {
+            toast.error(message)
+        }
+        //redirect when Register
+        if (isSuccess || user) {
+            navigate("/")
+        }
+        dispatch(reset())
+    }, [dispatch, navigate, isError, isSuccess, message])
 
     const handleChange = (e) => {
         setFormData((preState) => ({
@@ -42,7 +55,7 @@ const Register = () => {
             <section className='heading'>
                 <h1>
                     <FaUser />Register
-                    {user}
+
                 </h1>
                 <p>Please create an Account!</p>
             </section>
