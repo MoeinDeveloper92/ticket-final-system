@@ -17,6 +17,19 @@ const register = async (userData) => {
         throw error
     }
 }
+//login
+const login = async (userData) => {
+    try {
+        const response = await axios.post(API_URL + "/login", userData)
+        if (response.data) {
+            localStorage.setItem("user", JSON.stringify(response.data))
+
+        }
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
 
 //logit
 const logout = async () => {
@@ -25,6 +38,7 @@ const logout = async () => {
 
 const authService = {
     register,
+    login,
     logout
 }
 

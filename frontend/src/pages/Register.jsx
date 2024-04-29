@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 import { useSelector, useDispatch } from "react-redux"
 import { register, reset } from '../features/auth/authSlice'
 import { useNavigate } from "react-router-dom"
+import Spinner from "../components/Spinner"
 const Register = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -49,6 +50,9 @@ const Register = () => {
             }
             dispatch(register(userData))
         }
+    }
+    if (isLoading) {
+        return <Spinner />
     }
     return (
         <>
