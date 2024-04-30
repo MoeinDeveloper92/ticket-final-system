@@ -15,10 +15,7 @@ const getTickets = asyncHandler(async (req, res) => {
 
     const tickets = await Ticket.find({ user: req.user._id })
 
-    res.status(200).json({
-        count: tickets.length,
-        tickets
-    })
+    res.status(200).json(tickets)
 })
 
 

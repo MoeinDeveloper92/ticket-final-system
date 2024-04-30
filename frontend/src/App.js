@@ -7,8 +7,9 @@ import {
 } from "react-router-dom"
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
-import { Home, Register, Login } from "./pages/index"
+import { Home, Register, Login, NewTicket, PrivateRoute, Tickets, NotFound } from "./pages/index"
 import MainLayout from './layout/MainLayout'
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -16,6 +17,13 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/new-ticket' element={<PrivateRoute />}>
+          <Route path='/new-ticket' element={<NewTicket />} />
+        </Route>
+        <Route path='/tickets' element={<PrivateRoute />}>
+          <Route path='/tickets' element={<Tickets />} />
+        </Route>
+        <Route path='*' element={<NotFound />} />
       </Route>
     </>
 
